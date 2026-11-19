@@ -25,421 +25,414 @@ img { max-width: 100%; }
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Founding Seat: lead-first flow. Signature elements: the 100-dot board, big coral numbers, the empty seat that fills at the end. */
+/* Founding Seat. Direction: a salesperson's working papers. The page is built from the things the job actually produces
+   (a prospect sheet, a scraped row crossed out, a meeting note, a price list), marked up by hand in coral pen.
+   One moment of motion: the pen marks draw themselves on the hero sheet. Everything else is quiet. */
 :root {
-  --bg: #ffffff; --surface: #ffffff; --stone: #f4f4f5; --ink: #18181b; --muted: #57575f; --line: #e4e4e7;
-  --accent: #e4572e; --accent-text: #b83e1f; --accent-soft: #fdebe5;
-  --font-display: "Outfit", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Outfit", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --paper: #ffffff; --sheet: #fbfbfa; --ink: #18181b; --pencil: #62626a; --rule: #dedee2; --grid: #ececef;
+  --pen: #e4572e; --pen-text: #b83e1f;
+  --sans: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #121214; --surface: #18181b; --stone: #1f1f23; --ink: #f4f4f5; --muted: #a1a1aa; --line: #2e2e33;
-    --accent: #f0704c; --accent-text: #f58a6b; --accent-soft: #2a1913; color-scheme: dark;
-  }
+  :root:not([data-theme="light"]) { --paper: #141416; --sheet: #1b1b1e; --ink: #ededee; --pencil: #a3a3ab; --rule: #34343a; --grid: #26262b; --pen: #f0704c; --pen-text: #f58a6b; color-scheme: dark; }
 }
-:root[data-theme="dark"] {
-  --bg: #121214; --surface: #18181b; --stone: #1f1f23; --ink: #f4f4f5; --muted: #a1a1aa; --line: #2e2e33;
-  --accent: #f0704c; --accent-text: #f58a6b; --accent-soft: #2a1913; color-scheme: dark;
-}
+:root[data-theme="dark"] { --paper: #141416; --sheet: #1b1b1e; --ink: #ededee; --pencil: #a3a3ab; --rule: #34343a; --grid: #26262b; --pen: #f0704c; --pen-text: #f58a6b; color-scheme: dark; }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-a { color: var(--accent-text); }
-a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 600; letter-spacing: -0.03em; }
-h1 em, h2 em { font-style: normal; color: var(--accent); }
-h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 600; letter-spacing: -0.02em; }
-h3 { font-size: 1.15rem; font-weight: 600; }
-p { margin: 0; max-width: 62ch; }
-.label { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.label b { color: var(--accent-text); font-weight: 500; }
-.muted { color: var(--muted); }
+html { scroll-padding-top: 72px; }
+body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 18px; line-height: 1.6; }
+.wrap { max-width: 1140px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+a { color: var(--ink); text-decoration-color: var(--pen); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--pen-text); }
+:focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
+h1 { font-size: clamp(2.9rem, 7vw, 5.4rem); line-height: 0.98; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); line-height: 1.05; letter-spacing: -0.025em; }
+h3 { font-size: 1.15rem; line-height: 1.25; }
+p { margin: 0; max-width: 60ch; }
+.quiet { color: var(--pencil); }
+.small { font-size: 0.9rem; }
 
-/* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; text-decoration: none; padding: 14px 22px; border-radius: 999px; border: 1.5px solid var(--ink); cursor: pointer; }
-.btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn.ghost { background: transparent; color: var(--ink); }
-.btn.small { padding: 9px 16px; font-size: 0.95rem; }
+/* Buttons: plain, squared, like a form on a desk, not pills */
+.btn { display: inline-block; font: inherit; font-size: 1rem; font-weight: 600; text-decoration: none; padding: 13px 20px; border-radius: 4px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; }
+.btn:hover { background: var(--pen); border-color: var(--pen); color: #fff; }
+.btn.line { background: transparent; color: var(--ink); }
+.btn.line:hover { border-color: var(--pen); color: var(--pen-text); background: transparent; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Header */
-header.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
-.brand { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
-.brand svg { width: 30px; height: 30px; flex: none; }
-.brand .seat { color: var(--accent); }
-nav.links { display: flex; gap: 24px; }
-nav.links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 0.97rem; }
+header.top { position: sticky; top: 0; z-index: 20; background: var(--paper); border-bottom: 1px solid var(--rule); }
+header.top .wrap { display: flex; align-items: center; gap: 28px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; margin-right: auto; }
+.brand svg { width: 28px; height: 28px; }
+nav.links { display: flex; gap: 22px; font-size: 0.97rem; }
+nav.links a { text-decoration: none; color: var(--pencil); }
 nav.links a:hover { color: var(--ink); }
+header .btn { padding: 9px 14px; font-size: 0.95rem; }
+
+/* Hand-drawn pen marks */
+.pen { fill: none; stroke: var(--pen); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.ring { position: absolute; left: -9px; top: -6px; width: calc(100% + 16px); height: calc(100% + 12px); pointer-events: none; overflow: visible; }
 
 /* Hero */
-.hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; padding-block: 64px 40px; }
-.hero-copy { display: grid; gap: 22px; min-width: 0; }
-.lede { font-size: 1.2rem; color: var(--muted); }
-.lede strong { color: var(--ink); font-weight: 600; }
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.trust { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; margin: 0; padding: 0; font-size: 0.92rem; color: var(--muted); }
-.trust li { display: inline-flex; align-items: center; gap: 8px; }
-.trust li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; padding-block: 72px 88px; align-items: start; }
+.hero-copy { display: grid; gap: 26px; padding-top: 20px; }
+.lede { font-size: 1.2rem; color: var(--pencil); }
+.lede b { color: var(--ink); font-weight: 600; }
+.fine { font-size: 0.95rem; color: var(--pencil); }
 
-.board { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: grid; gap: 16px; min-width: 0; box-shadow: 0 1px 0 var(--line), 0 24px 48px -32px rgba(24,24,27,0.35); }
-.board-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-.board-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
-.grid100 { display: grid; grid-template-columns: repeat(10, 1fr); gap: 7px; }
-.dot { aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--line); transition: background-color .35s ease, border-color .35s ease, transform .35s ease; }
-.dot.contacted { border-color: var(--muted); }
-.dot.replied { background: var(--ink); border-color: var(--ink); }
-.dot.meeting { background: var(--accent); border-color: var(--accent); transform: scale(1.12); }
-.counts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.counts div { border-top: 1px solid var(--line); padding-top: 8px; }
-.counts strong { display: block; font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.counts .m strong { color: var(--accent); }
-.counts span { font-size: 0.85rem; color: var(--muted); }
-.board-note { font-size: 0.82rem; color: var(--muted); }
-.replay { justify-self: start; font: inherit; font-size: 0.85rem; background: none; border: 0; padding: 0; color: var(--accent-text); text-decoration: underline; cursor: pointer; }
+/* The prospect sheet */
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; position: relative; transform: rotate(0.6deg); min-width: 0; }
+.sheet-head { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--rule); font-size: 0.9rem; color: var(--pencil); }
+.sheet-head b { color: var(--ink); font-weight: 600; }
+.sheet table { width: 100%; table-layout: fixed; border-collapse: collapse; font-family: var(--mono); font-size: 0.74rem; line-height: 1.35; }
+.sheet th { text-align: left; font-weight: 500; color: var(--pencil); padding: 7px 10px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--grid); background: var(--paper); }
+.sheet td { padding: 8px 10px; border-bottom: 1px solid var(--grid); border-right: 1px solid var(--grid); vertical-align: top; overflow-wrap: anywhere; }
+.sheet td:last-child, .sheet th:last-child { border-right: 0; }
+.sheet .rn { color: var(--pencil); width: 38px; text-align: right; }
+.sheet .met-cell { overflow: visible; }
+.cell-mark { position: relative; display: inline-block; }
+.sheet .met { color: var(--pen-text); font-weight: 500; padding-left: 7px; white-space: nowrap; }
+.row > * { min-width: 0; }
+.row.bad .lines div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tally { padding: 14px 16px 16px; display: grid; gap: 10px; border-top: 1px solid var(--rule); }
+.tally-row { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: center; font-size: 0.88rem; }
+.tally-row svg { height: 22px; width: 100%; overflow: visible; }
+.tally-row svg line { stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; }
+.tally-row.m svg line { stroke: var(--pen); stroke-width: 2.2; }
+.tally-row b { font-variant-numeric: tabular-nums; }
+.sheet-note { position: absolute; right: -6px; bottom: -40px; transform: rotate(-2deg); color: var(--pen-text); font-size: 0.92rem; font-weight: 500; }
 
-/* Proof strip */
-.proof { border-block: 1px solid var(--line); background: var(--stone); }
-.proof .wrap { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: 28px; align-items: center; padding-block: 26px; }
-.proof .label { max-width: 14ch; }
-.stat strong { display: block; font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 600; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
-.stat span { display: block; margin-top: 6px; font-size: 0.9rem; color: var(--muted); line-height: 1.35; }
+/* Draw-on animation: the one moment of motion */
+@media (prefers-reduced-motion: no-preference) {
+  .draw .pen { stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 0.9s ease forwards; }
+  .draw .pen.d2 { animation-delay: 0.5s; } .draw .pen.d3 { animation-delay: 1s; } .draw .pen.d4 { animation-delay: 1.5s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+}
 
-/* Sections */
-section.band { padding-block: 80px; }
-section.band + section.band { border-top: 1px solid var(--line); }
-section.tint { background: var(--stone); }
-.section-head { display: grid; gap: 12px; margin-bottom: 40px; }
-.section-sub { color: var(--muted); }
+/* Letter from Eli */
+section { padding-block: 96px; border-top: 1px solid var(--rule); }
+.letter { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; }
+.letter aside { display: grid; gap: 16px; align-content: start; }
+.photo { aspect-ratio: 4 / 5; width: 100%; border: 1.5px dashed var(--rule); border-radius: 4px; background: var(--sheet); display: grid; place-items: center; text-align: center; color: var(--pencil); font-size: 0.9rem; padding: 16px; position: relative; overflow: hidden; }
+.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.letter-body { display: grid; gap: 20px; font-size: 1.2rem; line-height: 1.65; }
+.letter-body p { max-width: 58ch; }
+.hl { position: relative; white-space: nowrap; font-weight: 600; }
+.hl svg { position: absolute; left: -2px; right: -2px; bottom: -8px; width: calc(100% + 4px); height: 12px; overflow: visible; }
+.sig { margin-top: 6px; font-size: 1rem; color: var(--pencil); }
+.sig b { display: block; color: var(--ink); font-size: 1.15rem; }
 
-/* Problem */
-.pains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.pain { border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; gap: 10px; align-content: start; background: var(--surface); min-width: 0; }
-.pain .n { font-family: var(--font-display); font-size: 2.6rem; font-weight: 600; line-height: 1; color: var(--accent); }
-.pain p { color: var(--muted); font-size: 0.97rem; }
+/* Steps: a real sequence, so it's numbered */
+.steps-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: end; margin-bottom: 48px; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; position: relative; }
+.steps::before { content: ""; position: absolute; left: 0; right: 0; top: 19px; border-top: 2px solid var(--ink); }
+.steps li { display: grid; gap: 10px; align-content: start; position: relative; }
+.steps .num { width: 40px; height: 40px; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 600; position: relative; }
+.steps li:first-child .num { background: var(--pen); border-color: var(--pen); color: #fff; }
+.steps .dur { color: var(--pencil); font-size: 0.95rem; }
+.steps p { color: var(--pencil); font-size: 1rem; }
+.weeks { margin-top: 44px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.weeks div { padding: 16px 20px 0 0; display: grid; gap: 4px; align-content: start; }
+.weeks b { font-weight: 600; }
+.weeks p { font-size: 0.95rem; color: var(--pencil); }
+.who { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; font-size: 1rem; }
+.who b { display: block; }
 
-/* Steps */
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--surface); }
-.step { padding: 28px; display: grid; gap: 10px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
-.step:last-child { border-right: 0; }
-.step .label { color: var(--accent-text); }
-.step .when { font-size: 0.9rem; color: var(--muted); font-family: var(--font-mono); }
-.step p { color: var(--muted); font-size: 0.97rem; }
-.step.hl { background: var(--accent-soft); }
-details.weeks-detail { margin-top: 20px; }
-.weeks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
-.weeks div { display: grid; gap: 6px; align-content: start; }
-.weeks p { font-size: 0.95rem; color: var(--muted); }
-.split { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.split div { padding: 18px 20px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); }
-.split strong { display: block; font-family: var(--font-display); margin-bottom: 4px; }
+/* Clean data: a scraped row crossed out next to a checked one */
+.data { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
+.data-copy { display: grid; gap: 18px; }
+.rows { display: grid; gap: 22px; }
+.row { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; font-family: var(--mono); font-size: 0.8rem; display: grid; gap: 4px; position: relative; }
+.row .tag { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+.row.bad .lines { position: relative; color: var(--pencil); }
+.row.bad svg.strike { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+.row .why { font-family: var(--sans); font-size: 0.9rem; color: var(--pen-text); margin-top: 6px; }
+.row.good .ok { font-family: var(--sans); font-size: 0.9rem; color: var(--pencil); margin-top: 6px; display: flex; gap: 8px; align-items: center; }
+.row.good .ok svg { width: 20px; height: 20px; flex: none; }
 
-/* Lists */
-.keep { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 36px; }
-.keep li { display: grid; gap: 6px; padding-top: 16px; border-top: 1px solid var(--line); min-width: 0; align-content: start; }
-.keep li h3::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 10px; vertical-align: middle; }
-.keep p { color: var(--muted); font-size: 0.97rem; }
+/* Qualified meetings: checklist next to the note a founder receives */
+.meet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+.checks { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 14px; }
+.checks li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+.checks svg { width: 22px; height: 22px; margin-top: 4px; }
+.checks span { color: var(--pencil); }
+.checks b { color: var(--ink); font-weight: 600; }
+.memo { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 26px 28px; display: grid; gap: 12px; font-size: 1rem; transform: rotate(-0.5deg); }
+.memo dl { margin: 0; display: grid; grid-template-columns: 96px 1fr; gap: 8px 14px; }
+.memo dt { color: var(--pencil); }
+.memo dd { margin: 0; }
+.memo .q { border-left: 3px solid var(--pen); padding-left: 12px; font-style: normal; }
+.memo-foot { font-size: 0.88rem; color: var(--pencil); border-top: 1px dashed var(--rule); padding-top: 12px; }
 
-/* Meetings */
-.meet { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.tests { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: t; }
-.tests li { display: grid; grid-template-columns: 34px 1fr; gap: 10px; counter-increment: t; }
-.tests li::before { content: "0" counter(t); font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-text); padding-top: 3px; }
-.tests strong { font-weight: 600; }
-.tests span { color: var(--muted); }
-.diary { border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 20px; display: grid; gap: 14px; min-width: 0; }
-.diary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.day { display: grid; gap: 6px; align-content: start; min-width: 0; }
-.day .label { text-align: center; }
-.slot { min-height: 40px; border-radius: 8px; background: var(--stone); }
-.slot.booked { background: var(--accent); color: #fff; font-size: 0.72rem; line-height: 1.15; padding: 5px 7px; overflow: hidden; display: flex; align-items: center; }
-.diary-note { font-size: 0.85rem; color: var(--muted); }
+/* Keep list */
+.keep-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; }
+.keep { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 40px; }
+.keep li { break-inside: avoid; padding: 0 0 22px; }
+.keep b { display: block; font-weight: 600; }
+.keep span { color: var(--pencil); font-size: 1rem; }
 
 /* Calculator */
-.calc { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: start; }
-.inputs { display: grid; gap: 22px; border: 1px solid var(--line); border-radius: 20px; padding: 24px; background: var(--surface); }
-.inputs label { display: grid; gap: 8px; font-weight: 600; }
-.inputs output { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
-input[type=range] { width: 100%; accent-color: var(--accent); }
-.bars { display: grid; gap: 14px; }
+.calc { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; }
+.inputs { display: grid; gap: 26px; margin-top: 28px; }
+.inputs label { display: grid; gap: 6px; font-weight: 500; }
+.inputs output { font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--pen); }
+.bars { display: grid; gap: 22px; }
 .bar { display: grid; gap: 6px; }
 .bar-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-.bar-top strong { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-size: 1.25rem; }
-.bar-track { height: 14px; border-radius: 999px; background: var(--stone); overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 999px; background: var(--muted); transition: width .4s ease; }
-.bar.ours .bar-fill { background: var(--accent); }
-.bar.ours .bar-top span { color: var(--accent-text); font-weight: 600; }
-.bar small { color: var(--muted); font-size: 0.88rem; }
-.calc-note { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+.bar-top b { font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+.bar-track { height: 10px; background: var(--grid); }
+.bar-fill { height: 100%; background: var(--pencil); transition: width .3s ease; }
+.bar.ours .bar-fill { background: var(--pen); }
+.bar.ours .bar-top span { font-weight: 600; }
+.bar small { color: var(--pencil); font-size: 0.9rem; }
 
-/* Pricing */
-.offer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.pkg { border: 1px solid var(--line); border-radius: 20px; padding: 26px; display: grid; gap: 14px; align-content: start; background: var(--surface); min-width: 0; }
-.pkg.hl { border: 2px solid var(--accent); }
-.price { font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
-.price small { display: block; font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; line-height: 1.45; color: var(--muted); margin-top: 8px; }
-.terms { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 0.95rem; color: var(--muted); }
-.terms li { display: grid; grid-template-columns: 14px 1fr; gap: 8px; }
-.terms li::before { content: ""; width: 7px; height: 7px; margin-top: 9px; border-radius: 50%; background: var(--accent); }
-.guarantees { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.guarantees div { border-radius: 16px; background: var(--accent-soft); padding: 18px 20px; display: grid; gap: 4px; }
-.guarantees strong { font-family: var(--font-display); }
-.guarantees span { font-size: 0.93rem; color: var(--muted); }
-.std { margin-top: 18px; font-size: 0.9rem; color: var(--muted); }
+/* Price list */
+.prices { width: 100%; border-collapse: collapse; margin-top: 36px; }
+.prices th, .prices td { text-align: left; vertical-align: top; padding: 22px 24px 22px 0; border-top: 1px solid var(--rule); }
+.prices tr:last-child td, .prices tr:last-child th { border-bottom: 1px solid var(--rule); }
+.prices th { width: 22%; font-weight: 600; font-size: 1.2rem; }
+.prices th span { display: block; font-weight: 400; font-size: 0.95rem; color: var(--pencil); }
+.prices td.what { color: var(--pencil); font-size: 1rem; }
+.prices td.cost { width: 26%; font-size: 1rem; }
+.prices td.cost b { display: block; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; }
+.promises { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; font-size: 1rem; }
+.promises b { display: block; }
+.promises span { color: var(--pencil); }
 
 /* Fit */
-.fit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.fit > div { border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; gap: 12px; align-content: start; background: var(--surface); }
-.fit ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--muted); }
+.fit { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 36px; }
+.fit ul { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 8px; color: var(--pencil); }
 
-/* About */
-.about { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 48px; align-items: start; }
-.photo { aspect-ratio: 4 / 5; border-radius: 20px; border: 2px dashed var(--line); background: var(--stone); display: grid; place-items: center; text-align: center; color: var(--muted); padding: 24px; position: relative; overflow: hidden; }
-.photo svg { width: 64px; height: 64px; color: var(--accent); margin: 0 auto 10px; display: block; }
-.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.about-copy { display: grid; gap: 18px; min-width: 0; }
-.record { list-style: none; margin: 0; padding: 0; display: grid; }
-.record li { display: grid; grid-template-columns: 112px 1fr; gap: 16px; align-items: baseline; border-top: 1px solid var(--line); padding-block: 14px; }
-.record .num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
-.record span:last-child { color: var(--muted); }
-
-/* Lead magnet */
-.magnet { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; background: var(--ink); color: var(--bg); border-radius: 24px; padding: 48px; }
-.magnet .label { color: color-mix(in srgb, var(--bg) 70%, transparent); }
-.magnet p { color: color-mix(in srgb, var(--bg) 78%, transparent); }
-.magnet h2 em { color: var(--accent); }
-form.lead { display: grid; gap: 12px; }
-form.lead label { display: grid; gap: 6px; font-size: 0.9rem; font-weight: 500; }
-form.lead input, form.lead textarea { font: inherit; font-size: 1rem; padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent); background: color-mix(in srgb, var(--bg) 8%, transparent); color: var(--bg); width: 100%; }
-form.lead input::placeholder, form.lead textarea::placeholder { color: color-mix(in srgb, var(--bg) 45%, transparent); }
-form.lead .btn { justify-content: center; margin-top: 4px; }
-.form-msg { font-size: 0.9rem; min-height: 1.4em; }
+/* Free prospects */
+.free { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+form.lead { display: grid; gap: 14px; border: 2px solid var(--ink); border-radius: 6px; padding: 26px; }
+form.lead label { display: grid; gap: 6px; font-size: 0.95rem; font-weight: 500; }
+form.lead input, form.lead textarea { font: inherit; font-size: 1rem; padding: 11px 12px; border: 1px solid var(--rule); border-radius: 4px; background: var(--paper); color: var(--ink); width: 100%; }
+.form-msg { font-size: 0.92rem; min-height: 1.4em; color: var(--pencil); }
 
 /* FAQ */
-.faq { display: grid; gap: 12px; max-width: 800px; }
-details { border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; background: var(--surface); }
-summary { cursor: pointer; font-weight: 600; color: var(--ink); }
-.faq details p { margin-top: 10px; color: var(--muted); }
+.faq { max-width: 820px; margin-top: 32px; border-top: 1px solid var(--rule); }
+.faq details { border-bottom: 1px solid var(--rule); padding: 18px 0; }
+.faq summary { cursor: pointer; font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--pen-text); font-weight: 500; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details p { margin-top: 10px; color: var(--pencil); }
 
-/* Final */
-.final { text-align: center; display: grid; gap: 20px; justify-items: center; }
-.final svg.seatmark { width: 120px; height: 120px; }
-.final .cta-row { justify-content: center; }
-.contact-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
-.contact-row code { font-family: var(--font-mono); background: var(--surface); border: 1px solid var(--line); padding: 9px 14px; border-radius: 10px; user-select: all; }
-.copy { font: inherit; font-weight: 600; background: none; color: var(--ink); border: 1.5px solid var(--ink); padding: 8px 14px; border-radius: 999px; cursor: pointer; }
-.final svg.seatmark { color: var(--ink); }
-.final.filled svg.seatmark { --seat-fill: var(--accent); color: var(--accent); }
+/* Close */
+.close { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 64px; align-items: end; }
+.close .contacts { display: grid; gap: 10px; font-size: 1rem; }
+.close code { font-family: var(--mono); font-size: 0.9rem; }
 
-/* Footer */
-footer { border-top: 1px solid var(--line); padding-block: 36px 96px; color: var(--muted); font-size: 0.9rem; }
+footer { border-top: 1px solid var(--rule); padding-block: 36px 96px; color: var(--pencil); font-size: 0.9rem; }
 footer .wrap { display: grid; gap: 16px; }
-details .policy { display: grid; gap: 12px; margin-top: 12px; color: var(--muted); }
-details h3 { color: var(--ink); font-size: 1rem; }
+footer details { border: 1px solid var(--rule); border-radius: 4px; padding: 12px 16px; }
+footer summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+details .policy { display: grid; gap: 12px; margin-top: 12px; }
+details .policy h3 { color: var(--ink); font-size: 1rem; }
 
-/* Mobile action bar */
 .mobile-bar { display: none; }
 
-@media (max-width: 900px) {
+@media (max-width: 920px) {
   nav.links { display: none; }
-  .hero .wrap, .meet, .calc, .about, .magnet { grid-template-columns: 1fr; gap: 36px; }
-  .hero .wrap { padding-block: 40px 32px; }
-  .proof .wrap { grid-template-columns: 1fr 1fr; }
-  .proof .label { grid-column: 1 / -1; max-width: none; }
-  .pains, .offer, .guarantees { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; }
-  .step { border-right: 0; border-bottom: 1px solid var(--line); }
-  .step:last-child { border-bottom: 0; }
+  .hero .wrap, .letter, .steps-head, .data, .meet, .keep-grid, .calc, .free, .close { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .hero .wrap { padding-block: 44px 72px; }
+  .letter aside { grid-template-columns: 140px 1fr; align-items: end; }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .steps::before { left: 19px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 2px solid var(--ink); }
+  .steps li { grid-template-columns: 40px 1fr; column-gap: 16px; }
+  .steps li > :not(.num) { grid-column: 2; }
+  .steps .num { grid-row: span 4; }
   .weeks { grid-template-columns: 1fr 1fr; }
-  .keep { grid-template-columns: 1fr 1fr; }
-  .photo { max-width: 340px; }
-  .magnet { padding: 32px 24px; }
+  .promises { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .sheet .hide-m { display: none; }
+  .sheet th.st { width: 58%; }
+  .tally-row { grid-template-columns: 80px 1fr auto; }
 }
-@media (max-width: 560px) {
-  body { font-size: 16px; }
-  section.band { padding-block: 56px; }
-  .keep, .weeks, .split, .fit { grid-template-columns: 1fr; }
-  .record li { grid-template-columns: 1fr; gap: 2px; }
-  header.top .btn { display: none; }
-  .mobile-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px max(12px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--bg); border-top: 1px solid var(--line); }
-  .mobile-bar .btn { justify-content: center; padding: 12px 10px; font-size: 0.95rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .dot, .bar-fill { transition: none; }
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  section { padding-block: 64px; }
+  .who, .fit, .weeks { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .keep { columns: 1; }
+  .prices, .prices tbody, .prices tr, .prices th, .prices td { display: block; width: auto; }
+  .prices tr { border-top: 1px solid var(--rule); padding: 18px 0; }
+  .prices th, .prices td { border: 0; padding: 4px 0; }
+  .prices tr:last-child td { border-bottom: 0; }
+  .prices tr:last-child { border-bottom: 1px solid var(--rule); }
+  .letter-body { font-size: 1.08rem; }
+  header .btn { display: none; }
+  .sheet { transform: none; }
+  .sheet-note { position: static; display: block; padding: 0 16px 14px; transform: none; }
+  .mobile-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 10px max(12px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--paper); border-top: 1px solid var(--rule); }
+  .mobile-bar .btn { text-align: center; padding: 11px 8px; font-size: 0.95rem; }
 }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top"><svg viewBox="0 0 40 40" role="img" aria-label="Founding Seat logo"><rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="currentColor" stroke-width="3"></rect><text x="20" y="24" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-size="16" font-weight="700" fill="currentColor">fs</text><line x1="12" y1="30" x2="28" y2="30" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"></line></svg><span>Founding <span class="seat">Seat</span></span></a>
+    <a class="brand" href="#top"><svg viewBox="0 0 40 40" role="img" aria-label="Founding Seat logo"><rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="currentColor" stroke-width="3"></rect><text x="20" y="24" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-size="16" font-weight="700" fill="currentColor">fs</text><line x1="12" y1="30" x2="28" y2="30" stroke="#e4572e" stroke-width="3" stroke-linecap="round"></line></svg>Founding Seat</a>
     <nav class="links" aria-label="Main">
       <a href="#how">How it works</a>
-      <a href="#cost">Cost</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#about">About</a>
-      <a href="#faq">FAQ</a>
+      <a href="#pricing">Prices</a>
+      <a href="#eli">About Eli</a>
+      <a href="#questions">Questions</a>
     </nav>
-    <a class="btn small accent" data-book href="#book">Book a 20-minute call</a>
+    <a class="btn" data-book href="#talk">Book a call</a>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero">
+  <div class="hero">
     <div class="wrap">
       <div class="hero-copy">
-        <span class="label">For funded B2B founders before their first sales hire</span>
-        <h1>Prove the role, then <em>fill it.</em></h1>
-        <p class="lede">Most first salespeople spend three months working out who actually buys. <strong>We do that part first.</strong> Four weeks contacting 100 hand-checked prospects and booking the qualified ones into your diary. Then we hire the person to run it.</p>
-        <div class="cta-row">
-          <a class="btn accent" data-book href="#book">Book a 20-minute call</a>
-          <a class="btn ghost" href="#free">Get 10 free prospects</a>
+        <h1>Prove the role, then fill it.</h1>
+        <p class="lede">Your first salesperson usually spends three months working out who buys. <b>I do that part first.</b> For four weeks I contact 100 hand-checked prospects and put the qualified ones in your diary. Then I hire the person to carry it on.</p>
+        <div class="actions">
+          <a class="btn" data-book href="#talk">Book a 20-minute call</a>
+          <a class="btn line" href="#free">Get 10 free prospects</a>
         </div>
-        <ul class="trust">
-          <li>Prices on the page</li>
-          <li>Stop with 7 days' notice</li>
-          <li>Every contact checked by hand</li>
-        </ul>
+        <p class="fine">Prices are on this page. Stop the four weeks with 7 days' notice.</p>
       </div>
-      <figure class="board" aria-label="Illustration: 100 prospects contacted over four weeks, 10 replies and 5 qualified meetings">
-        <div class="board-head">
-          <span class="board-title">Your first 100 prospects</span>
-          <span class="label" id="weekLabel">Week 0</span>
-        </div>
-        <div class="grid100" id="grid100"></div>
-        <div class="counts">
-          <div><strong id="cC">0</strong><span>contacted</span></div>
-          <div><strong id="cR">0</strong><span>replied</span></div>
-          <div class="m"><strong id="cM">0</strong><span>meetings</span></div>
-        </div>
-        <figcaption class="board-note">An example of four weeks. We aim for 5 qualified meetings from 100 prospects: a target, not a promise.</figcaption>
-        <button class="replay" type="button" id="replay">Play again</button>
-      </figure>
-    </div>
-  </section>
 
-  <div class="proof">
-    <div class="wrap">
-      <span class="label">Eli's record before Founding Seat</span>
-      <div class="stat"><strong>180%</strong><span>of year-one target as a start-up's first UK salesperson</span></div>
-      <div class="stat"><strong>25</strong><span>new clients in that first year</span></div>
-      <div class="stat"><strong>&pound;47k</strong><span>first month at BrightHR, team average &pound;5.5k</span></div>
-      <div class="stat"><strong>&pound;15k</strong><span>a month from a recruitment desk built from zero</span></div>
+      <figure class="sheet draw" style="margin:0" aria-label="Example prospect sheet from week 3 of four, with meetings circled">
+        <div class="sheet-head"><span><b>Prospects</b>, your company</span><span>Week 3 of 4</span></div>
+        <table>
+          <thead><tr><th class="rn"></th><th>Role</th><th class="hide-m">Company</th><th class="st">Status</th></tr></thead>
+          <tbody>
+            <tr><td class="rn">14</td><td>Finance director</td><td class="hide-m">Logistics, 220 staff</td><td>Replied: not this year</td></tr>
+            <tr><td class="rn">15</td><td>Head of operations</td><td class="hide-m">Fintech, Series A</td><td class="met-cell"><span class="cell-mark met">Meeting, Tue 10:30<svg class="ring" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path class="pen" d="M8 22C6 9 40 3 72 4c30 1 46 9 44 18-2 10-34 15-62 14C26 35 6 30 9 17"/></svg></span></td></tr>
+            <tr><td class="rn">16</td><td>CFO</td><td class="hide-m">Manufacturer, 400 staff</td><td>Follow-up 2 sent</td></tr>
+            <tr><td class="rn">17</td><td>Talent lead</td><td class="hide-m">Retail group, 900 staff</td><td class="met-cell"><span class="cell-mark met">Meeting, Thu 14:00<svg class="ring" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path class="pen d2" d="M10 20C9 8 44 4 74 5c28 2 44 8 42 17-3 11-36 14-64 12C24 32 7 27 11 15"/></svg></span></td></tr>
+            <tr><td class="rn">18</td><td>Founder</td><td class="hide-m">SaaS, 40 staff</td><td>Called, voicemail</td></tr>
+            <tr><td class="rn">19</td><td>Sales director</td><td class="hide-m">Insurance, 150 staff</td><td>Wrong person: referred to COO</td></tr>
+          </tbody>
+        </table>
+        <div class="tally" id="tally"></div>
+        <figcaption class="sheet-note">An example. We aim for 5 from 100.</figcaption>
+      </figure>
     </div>
   </div>
 
-  <section class="band" id="problem">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>01</b> &middot; The problem</span>
-        <h2>Your first sales hire is a <em>guess</em> until someone tests the market.</h2>
-      </div>
-      <div class="pains">
-        <div class="pain"><span class="n">3 months</span><h3>Spent finding who buys</h3><p>A new salesperson usually spends their first quarter working out which companies and job titles actually say yes.</p></div>
-        <div class="pain"><span class="n">Bad data</span><h3>Talking to the wrong people</h3><p>Scraped lists are full of wrong titles, people who left months ago and emails that bounce. We've felt it ourselves, and most sales leaders we speak to feel it too.</p></div>
-        <div class="pain"><span class="n">1 year</span><h3>Of salary on a wrong hire</h3><p>Without evidence, the job description is a guess. A wrong first hire can cost a year's salary and a year of momentum.</p></div>
+  <section id="eli">
+    <div class="wrap letter">
+      <aside>
+        <div class="photo"><!-- Replace with: <img src="brand/eli.jpg" alt="Eli Omokhodion"> --><span>Photo of Eli<br>coming soon</span></div>
+        <p class="small quiet">Eli Omokhodion, founder. Based in Manchester. <a href="https://www.linkedin.com/in/eli-omokhodion-6579469a/" target="_blank" rel="noopener">LinkedIn</a></p>
+      </aside>
+      <div class="letter-body">
+        <h2>I've been a founder's first salesperson. I know where those first months go.</h2>
+        <p>At Recruitroo I was hired to launch the UK on my own: no pipeline, no brand, a list of guesses. I hit <span class="hl">180% of target<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path class="pen" d="M2 8c20-4 50-5 96-2"/></svg></span> in year one and signed 25 new clients, the first in month two. The people hired after me learned from the playbook I wrote.</p>
+        <p>At BrightHR I brought in &pound;47k in my first month, when the team average was &pound;5.5k. I've also built a recruitment desk from nothing to &pound;15k a month, so I've sat on the hiring side too.</p>
+        <p>What I learned: the first months go on finding out who actually buys, and most of that time is lost to bad lists and wrong guesses. Founding Seat does that work for you first, then hires someone into a job that's already been proven.</p>
+        <p class="sig"><b>Eli</b>Founder, Founding Seat</p>
       </div>
     </div>
   </section>
 
-  <section class="band tint" id="how">
+  <section id="how">
     <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>02</b> &middot; How it works</span>
-        <h2>Prove, run, hire. Your fractional sales team until we replace ourselves.</h2>
+      <div class="steps-head">
+        <h2>How it works</h2>
+        <p class="quiet">You can stop after any step. Most founders do the first and third: the four weeks' fee comes off the hiring fee.</p>
       </div>
-      <div class="steps">
-        <div class="step hl"><span class="label">Step 1 &middot; Prove</span><span class="when">4 weeks</span><h3>Test the market</h3><p>We agree who to target, build your first 100 hand-checked prospects, test two messages and book qualified meetings into your diary. Ends with a playbook and a hiring recommendation.</p></div>
-        <div class="step"><span class="label">Step 2 &middot; Run</span><span class="when">6-month term</span><h3>Keep the pipeline full</h3><p>100 new prospects a month, outreach by LinkedIn, email and phone, your CRM kept up to date, and meetings booked. We aim for 5 a month.</p></div>
-        <div class="step"><span class="label">Step 3 &middot; Hire</span><span class="when">4 to 8 weeks per role</span><h3>Hire into a proven role</h3><p>The person who ran your campaign runs the search. Shortlisted candidates do a mock call on your real pitch. 12-week replacement guarantee.</p></div>
+      <ol class="steps">
+        <li><span class="num">1</span><h3>Prove</h3><span class="dur">Four weeks</span><p>We agree who to target, build your first 100 prospects and check each one by hand, test two messages, and book qualified meetings. You finish with a playbook and an honest hiring recommendation.</p></li>
+        <li><span class="num">2</span><h3>Run</h3><span class="dur">Six-month term, if you want it</span><p>We keep going as your sales team: 100 new prospects a month, outreach by LinkedIn, email and phone, your CRM kept up to date, about 5 meetings a month.</p></li>
+        <li><span class="num">3</span><h3>Hire</h3><span class="dur">Four to eight weeks a role</span><p>The person who ran your outreach runs the search. Shortlisted candidates do a mock call on your real pitch. If your hire leaves within 12 weeks, we replace them free.</p></li>
+      </ol>
+      <div class="weeks">
+        <div><b>Week 1</b><p>Target profile agreed, list built and checked, outreach starts.</p></div>
+        <div><b>Week 2</b><p>All 100 contacted. Up to five touches each, never more than two a week.</p></div>
+        <div><b>Week 3</b><p>Follow-ups and calls. Meetings booked.</p></div>
+        <div><b>Week 4</b><p>Meetings held. Playbook and hiring recommendation handed over.</p></div>
       </div>
-      <details class="weeks-detail">
-        <summary>What happens in each of the four weeks</summary>
-        <div class="weeks">
-          <div><span class="label">Week 1</span><h3>Build and start</h3><p>Target profile agreed, 100 named decision makers checked by hand, two message versions written, outreach starts.</p></div>
-          <div><span class="label">Week 2</span><h3>Reach all 100</h3><p>Up to five touches each over about three weeks, never more than two a week. First discovery calls.</p></div>
-          <div><span class="label">Week 3</span><h3>Follow up</h3><p>Follow-ups and calls for everyone not yet reached. We keep booking meetings.</p></div>
-          <div><span class="label">Week 4</span><h3>Meet and hand over</h3><p>Meetings take place. We write the playbook and the hiring recommendation, then hand everything over.</p></div>
+      <div class="who">
+        <p><b>What we do</b><span class="quiet">Find, contact and qualify prospects, in your company's name, with messages you approve.</span></p>
+        <p><b>What you do</b><span class="quiet">Take the meetings and close your own deals. About 3 hours a week, plus the calls.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="data">
+    <div class="wrap data">
+      <div class="data-copy">
+        <h2>No scraped lists.</h2>
+        <p class="quiet">Scraping tools fill CRMs with wrong job titles, people who left months ago and emails that bounce. Salespeople then spend their week talking to the wrong customer. We've felt it ourselves, and most sales leaders we speak to feel it too.</p>
+        <p>So every prospect is checked by hand against their LinkedIn profile and company website before we contact them, and every record shows when it was last checked. Bounces and job moves are fixed in your CRM as we go.</p>
+      </div>
+      <div class="rows">
+        <div class="row bad">
+          <span class="tag">From a scraping tool</span>
+          <div class="lines">
+            <div>J. Patel &middot; Head of Finance &middot; Northgate Freight</div>
+            <div>j.patel@northgatefreight.co.uk</div>
+            <svg class="strike" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path class="pen" d="M2 11c60-3 140-5 296-2M4 31c80-3 170-4 292-1"/></svg>
+          </div>
+          <span class="why">Left in March. Email bounces.</span>
         </div>
-      </details>
-      <div class="split">
-        <div><strong>We open and qualify</strong>Finding, contacting and qualifying prospects, in your name, with messages you approve.</div>
-        <div><strong>You meet and close</strong>You run the sales meetings and close your own deals. About 3 hours a week of your time, plus the calls.</div>
+        <div class="row good">
+          <span class="tag">Checked by hand</span>
+          <div>S. Okafor &middot; Finance Director &middot; Northgate Freight</div>
+          <div>In role since 2024 &middot; 220 staff &middot; uses Xero</div>
+          <span class="ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg>Checked 18 Nov. Right company, right person.</span>
+        </div>
+        <p class="small quiet">Example records, not real people.</p>
       </div>
     </div>
   </section>
 
-  <section class="band" id="data">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>03</b> &middot; Clean data first</span>
-        <h2>No scraped lists. Every prospect is <em>checked by hand.</em></h2>
-      </div>
-      <ul class="keep">
-        <li><h3>Agreed profile first</h3><p>Before we build anything, we agree who to target and who to leave out, based on the customers who actually buy from you.</p></li>
-        <li><h3>Checked by hand</h3><p>Every prospect is checked against their LinkedIn profile and company website before we contact them: right company, right person, still in the role.</p></li>
-        <li><h3>Kept clean</h3><p>Bounces, job moves and wrong contacts are fixed in your CRM as we go, and every record shows when it was last checked.</p></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="band tint" id="meetings">
+  <section id="meetings">
     <div class="wrap meet">
       <div>
-        <div class="section-head" style="margin-bottom:28px">
-          <span class="label"><b>04</b> &middot; Qualified meetings</span>
-          <h2>You only pay for a meeting when all six are true.</h2>
-        </div>
-        <ol class="tests">
-          <li><div><strong>It happened.</strong> <span>The prospect turned up. A no-show is rebooked or not charged.</span></div></li>
-          <li><div><strong>Right company.</strong> <span>Inside the target profile we agree at kick-off.</span></div></li>
-          <li><div><strong>Right person.</strong> <span>They decide, or directly influence the decision.</span></div></li>
-          <li><div><strong>Real problem.</strong> <span>They've confirmed they have the problem you solve.</span></div></li>
-          <li><div><strong>Near-term timing.</strong> <span>They expect to decide within 3 months.</span></div></li>
-          <li><div><strong>They know why they're there.</strong> <span>They agreed to a meeting about your product.</span></div></li>
-        </ol>
+        <h2>You only pay for a meeting that passes all six checks.</h2>
+        <ul class="checks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg><p><b>It happened.</b> <span>The prospect turned up. A no-show is rebooked or not charged.</span></p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 12l6 7L21 5"/></svg><p><b>Right company.</b> <span>Inside the target profile we agree at the start.</span></p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M4 13l5 6L20 4"/></svg><p><b>Right person.</b> <span>They make the decision or directly influence it.</span></p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg><p><b>Real problem.</b> <span>They've said they have the problem you solve.</span></p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 12l7 7L20 5"/></svg><p><b>Decision within 3 months.</b> <span>Longer than that and it doesn't count.</span></p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M4 13l5 6L21 4"/></svg><p><b>They know why they're there.</b> <span>They agreed to a meeting about your product.</span></p></li>
+        </ul>
       </div>
-      <div class="diary" aria-label="Illustration: a week in your diary with qualified meetings booked">
-        <div class="board-head"><span class="board-title">Your diary, week 3</span><span class="label">Illustration</span></div>
-        <div class="diary-grid" id="diary"></div>
-        <p class="diary-note">Before each meeting you get a short note: who they are, their problem in their own words and their timing. Dispute any meeting within 24 hours.</p>
+      <div class="memo">
+        <p class="small quiet">The note you get before every meeting</p>
+        <dl>
+          <dt>Who</dt><dd>Head of Operations, fintech, Series A, 60 staff</dd>
+          <dt>When</dt><dd>Tuesday 10:30, video</dd>
+          <dt>Problem</dt><dd class="q">"We're still reconciling onboarding checks by hand and it's slowing every new client down."</dd>
+          <dt>Timing</dt><dd>Wants something in place before Q2</dd>
+          <dt>Decides</dt><dd>Yes, with the CFO</dd>
+        </dl>
+        <p class="memo-foot">If it misses one of the six checks, tell us within 24 hours and it's free.</p>
       </div>
     </div>
   </section>
 
-  <section class="band" id="keep">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>05</b> &middot; What you keep</span>
-        <h2>Six things at the end of week 4, whatever you decide next.</h2>
-      </div>
+  <section id="keep">
+    <div class="wrap keep-grid">
+      <div><h2>What you keep after four weeks, whatever you decide.</h2></div>
       <ul class="keep">
-        <li><h3>Prospect list</h3><p>100 named decision makers, each checked by hand, with their status and the last thing they said.</p></li>
-        <li><h3>Live pipeline</h3><p>Every conversation opened, with notes and an agreed next step.</p></li>
-        <li><h3>Message results</h3><p>Two versions tested, which one won and why.</p></li>
-        <li><h3>Buyer evidence</h3><p>Objections heard, answers that worked, what triggers a purchase and how long buyers take.</p></li>
-        <li><h3>Sales playbook</h3><p>Who to sell to, what to say and realistic weekly targets for a salesperson.</p></li>
-        <li><h3>Hiring recommendation</h3><p>Hire now, wait, or don't. If hire: the scorecard, salary range, advert and a mock-call test.</p></li>
+        <li><b>The prospect list</b><span>100 decision makers, checked by hand, with their status and the last thing they said.</span></li>
+        <li><b>A live pipeline</b><span>Every conversation opened, with notes and a next step.</span></li>
+        <li><b>Message results</b><span>Two versions tested, which one won and why.</span></li>
+        <li><b>What buyers said</b><span>Objections, answers that worked, what makes them buy and how long it takes.</span></li>
+        <li><b>A sales playbook</b><span>Who to sell to, what to say, realistic weekly targets.</span></li>
+        <li><b>A hiring recommendation</b><span>Hire now, wait, or don't. If hire: scorecard, salary range, advert and a mock-call test.</span></li>
       </ul>
     </div>
   </section>
 
-  <section class="band tint" id="cost">
+  <section id="cost">
     <div class="wrap calc">
       <div>
-        <div class="section-head" style="margin-bottom:24px">
-          <span class="label"><b>06</b> &middot; What it costs you</span>
-          <h2>Compare the routes to your first salesperson.</h2>
-          <p class="section-sub">Move the sliders to match your hire.</p>
-        </div>
+        <h2>What your first salesperson costs to find, four ways.</h2>
         <div class="inputs">
-          <label for="salary">Base salary of the hire <output id="salaryOut">&pound;80,000</output>
+          <label for="salary">Their base salary <output id="salaryOut">&pound;80,000</output>
             <input type="range" id="salary" min="40000" max="140000" step="5000" value="80000"></label>
-          <label for="mtgs">Qualified meetings held in the four weeks <output id="mtgsOut">5</output>
+          <label for="mtgs">Qualified meetings in the four weeks <output id="mtgsOut">5</output>
             <input type="range" id="mtgs" min="0" max="10" step="1" value="5"></label>
         </div>
       </div>
@@ -447,181 +440,100 @@ details h3 { color: var(--ink); font-size: 1rem; }
     </div>
   </section>
 
-  <section class="band" id="pricing">
+  <section id="pricing">
     <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>07</b> &middot; Pricing</span>
-        <h2>Pay for the set-up, then for the meetings you take.</h2>
-        <p class="section-sub">The four weeks' fee comes off the hiring fee, so if you hire through us the set-up costs nothing extra.</p>
-      </div>
-      <div class="offer">
-        <div class="pkg hl">
-          <span class="label">Prove &middot; 4 weeks</span>
-          <div class="price">&pound;3,500<small>plus &pound;300 per qualified meeting held</small></div>
-          <ul class="terms">
-            <li><span>Your first 100 prospects, built and checked by hand</span></li>
-            <li><span>Outreach, discovery calls and meetings in your diary</span></li>
-            <li><span>Playbook and hiring recommendation</span></li>
-            <li><span>Set a meeting limit if you want one</span></li>
-          </ul>
-          <a class="btn accent" data-book href="#book">Book a 20-minute call</a>
-        </div>
-        <div class="pkg">
-          <span class="label">Run &middot; 6-month term</span>
-          <div class="price">&pound;3,450<small>a month, plus &pound;250 per qualified meeting. &pound;2,950 if you supply the list</small></div>
-          <ul class="terms">
-            <li><span>100 new prospects a month</span></li>
-            <li><span>LinkedIn, email and phone outreach</span></li>
-            <li><span>CRM kept up to date, weekly report</span></li>
-            <li><span>Renews every 6 months unless you give a month's notice</span></li>
-          </ul>
-        </div>
-        <div class="pkg">
-          <span class="label">Hire &middot; every sales role</span>
-          <div class="price">15%<small>of first-year base salary per role</small></div>
-          <ul class="terms">
-            <li><span>Paid 30% at search start, 30% at first interview, 40% on contract</span></li>
-            <li><span>The Prove fee comes off the last payment</span></li>
-            <li><span>Mock-call test on your real pitch</span></li>
-            <li><span>12-week replacement guarantee</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="guarantees">
-        <div><strong>Stop any time</strong><span>End the four weeks with 7 days' notice and keep everything produced.</span></div>
-        <div><strong>Delivery guarantee</strong><span>If 100 prospects aren't contacted and the playbook isn't delivered by week 4, we keep working at no extra cost.</span></div>
-        <div><strong>Replacement guarantee</strong><span>If your hire leaves within 12 weeks, we replace them at no extra fee.</span></div>
-      </div>
-      <p class="std">Sales set-up (CRM, pipeline stages, reporting and a 30-day plan for your hire): &pound;2,000, only if you need it. Recruitment without the four weeks: 17.5% of first-year base salary. Prices exclude VAT where it applies.</p>
-    </div>
-  </section>
-
-  <section class="band tint" id="fit">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>08</b> &middot; Is this for you</span>
-        <h2>It works best when the role can be tested in four weeks.</h2>
+      <h2>Prices</h2>
+      <p class="quiet" style="margin-top:12px">Excluding VAT where it applies. The four weeks' fee comes off the hiring fee.</p>
+      <table class="prices">
+        <tbody>
+          <tr><th>Prove<span>Four weeks</span></th><td class="what">Your first 100 prospects, built and checked by hand. Outreach, discovery calls, meetings in your diary, a playbook and a hiring recommendation. Set a meeting limit if you want one.</td><td class="cost"><b>&pound;3,500</b>plus &pound;300 per qualified meeting</td></tr>
+          <tr><th>Run<span>Six-month term</span></th><td class="what">100 new prospects a month, outreach, your CRM kept up to date, weekly report. Renews every six months unless you give a month's notice.</td><td class="cost"><b>&pound;3,450 a month</b>plus &pound;250 per qualified meeting. &pound;2,950 if you supply the list</td></tr>
+          <tr><th>Hire<span>Any sales role</span></th><td class="what">Scorecard, search, interviews, a mock call on your real pitch, a shortlist in four to eight weeks. Paid 30% at the start, 30% at first interview, 40% on contract.</td><td class="cost"><b>15%</b>of first-year base salary</td></tr>
+          <tr><th>Sales set-up<span>Optional</span></th><td class="what">CRM set-up, pipeline stages, reporting and a 30-day plan for your new hire.</td><td class="cost"><b>&pound;2,000</b></td></tr>
+          <tr><th>Hire only<span>No four weeks</span></th><td class="what">For founders whose sales process is already proven.</td><td class="cost"><b>17.5%</b>of first-year base salary</td></tr>
+        </tbody>
+      </table>
+      <div class="promises">
+        <p><b>Stop when you like</b><span>End the four weeks with 7 days' notice and keep everything produced.</span></p>
+        <p><b>We finish the job</b><span>If 100 prospects aren't contacted and the playbook isn't done by week 4, we keep working free.</span></p>
+        <p><b>Free replacement</b><span>If your hire leaves within 12 weeks, we find another at no fee.</span></p>
       </div>
       <div class="fit">
-        <div><h3>A good fit</h3><ul>
-          <li>Funded B2B company, seed to Series A</li>
-          <li>The founder has closed some deals personally</li>
-          <li>Deals close in weeks or a few months</li>
-          <li>A first sales hire planned in the next 6 months</li>
+        <div><h3>Works well if you are</h3><ul>
+          <li>A funded B2B company, seed to Series A</li>
+          <li>A founder who has closed some deals yourself</li>
+          <li>Selling with deals that close in weeks or a few months</li>
+          <li>Planning a first sales hire in the next 6 months</li>
         </ul></div>
-        <div><h3>Not a fit</h3><ul>
+        <div><h3>Not right if you are</h3><ul>
           <li>Pre-revenue, with no customers yet</li>
-          <li>Sales cycles of 6 months or more with procurement. We'll say so and point you elsewhere</li>
-          <li>Self-serve products sold without a salesperson</li>
+          <li>On 6-month-plus sales cycles with procurement. We'll say so</li>
+          <li>Self-serve, with no salesperson needed</li>
           <li>Selling to consumers</li>
         </ul></div>
       </div>
     </div>
   </section>
 
-  <section class="band" id="about">
-    <div class="wrap about">
-      <div class="photo" id="photo">
-        <!-- Replace with: <img src="brand/eli.jpg" alt="Eli Omokhodion, founder of Founding Seat"> -->
-        <div><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#seat"></use></svg><strong>Photo of Eli</strong><br><span>Portrait, 4:5, coming soon</span></div>
+  <section id="free">
+    <div class="wrap free">
+      <div style="display:grid;gap:18px">
+        <h2>Not ready for a call? Get 10 prospects free.</h2>
+        <p class="quiet">Tell us who you sell to. Within two working days we'll send 10 named decision makers who fit, each checked by hand. Yours to keep, whether or not we work together.</p>
       </div>
-      <div class="about-copy">
-        <span class="label"><b>09</b> &middot; Who does the work</span>
-        <h2>Eli Omokhodion, founder</h2>
-        <p>I've done this job. At Recruitroo I was the only salesperson, hired to launch the UK market with no pipeline and no brand. I built the pipeline from cold calls and email, wrote the sales playbook, and the UK hires who came after me onboarded with it.</p>
-        <ul class="record">
-          <li><span class="num">180%</span><span>of year-one target as Recruitroo's first UK salesperson. 25 new clients, the first in month 2.</span></li>
-          <li><span class="num">&pound;47k</span><span>new business in my first month at BrightHR, against a team average of &pound;5.5k. Promoted after 3 months.</span></li>
-          <li><span class="num">135%</span><span>of quarterly target at Blink Payment, selling payments into insurance, construction and automotive.</span></li>
-          <li><span class="num">&pound;15k</span><span>a month in billings from a German IT recruitment desk I built from zero at WunderTalent.</span></li>
-        </ul>
-        <p>So I know both halves of this: how to open a market, and how to hire the person who runs it.</p>
-        <div class="cta-row">
-          <a class="btn" data-book href="#book">Book a call with Eli</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/eli-omokhodion-6579469a/" target="_blank" rel="noopener">Eli on LinkedIn</a>
-        </div>
-      </div>
+      <form class="lead" id="leadForm" novalidate>
+        <!-- Connect to HubSpot forms once set up: replace the submit handler below. -->
+        <label>Your name<input name="name" autocomplete="name" required></label>
+        <label>Work email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Company website<input name="website" type="url" placeholder="company.com"></label>
+        <label>Who do you sell to?<textarea name="buyers" rows="2" placeholder="For example: finance directors at UK manufacturers with 50 to 500 staff"></textarea></label>
+        <div><button class="btn" type="submit">Send me 10 prospects</button></div>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
     </div>
   </section>
 
-  <section class="band" id="free">
+  <section id="questions">
     <div class="wrap">
-      <div class="magnet">
-        <div style="display:grid;gap:16px">
-          <span class="label">Free, no call needed</span>
-          <h2>Get <em>10 hand-checked prospects</em> for your business.</h2>
-          <p>Tell us who you sell to. Within 2 working days we'll send 10 named decision makers who fit, each checked by hand: right company, right person, still in the role. Yours to keep, whether or not we work together.</p>
-        </div>
-        <form class="lead" id="leadForm" novalidate>
-          <!-- Connect to HubSpot forms once set up: replace the submit handler below. -->
-          <label>Your name<input name="name" autocomplete="name" required placeholder="Jane Smith"></label>
-          <label>Work email<input name="email" type="email" autocomplete="email" required placeholder="jane@company.com"></label>
-          <label>Company website<input name="website" type="url" placeholder="company.com"></label>
-          <label>Who do you sell to?<textarea name="buyers" rows="2" placeholder="e.g. finance directors at UK manufacturers, 50 to 500 staff"></textarea></label>
-          <button class="btn accent" type="submit">Send me 10 prospects</button>
-          <p class="form-msg" id="formMsg" role="status"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <section class="band tint" id="faq">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><b>10</b> &middot; Questions founders ask</span>
-        <h2>Before you get in touch</h2>
-      </div>
+      <h2>Questions founders ask</h2>
       <div class="faq">
         <details><summary>We already use a recruiter.</summary><p>Keep them if you like. Four weeks of evidence gives any recruiter a far better brief, and your hire starts with live pipeline.</p></details>
         <details><summary>We need someone now.</summary><p>The four weeks can run alongside your search. Whoever you hire inherits the pipeline.</p></details>
         <details><summary>Isn't it too early for sales?</summary><p>That's what the four weeks tests, for &pound;3,500 instead of a salary.</p></details>
         <details><summary>You don't know our sector.</summary><p>Most candidates won't either. The four weeks is where we learn it, and where we find out what your hire needs to know.</p></details>
-        <details><summary>What if it doesn't work?</summary><p>Stop the four weeks at any time with 7 days' notice and keep everything produced. If outbound doesn't work for you, you've found out before committing a salary.</p></details>
-        <details><summary>Who builds the list?</summary><p>We do, and we check every contact by hand rather than trusting a scraping tool. Your first 100 prospects are part of the four weeks. On Run we build 100 new prospects every month, or work from your own list for &pound;500 a month less.</p></details>
-        <details><summary>How often do you contact each prospect?</summary><p>Up to five times over about three weeks: a personal first message, a short follow-up, something useful such as a relevant list or insight, an email or call, and a final note. We stop the moment someone replies or asks us to, and never send more than two messages a week.</p></details>
+        <details><summary>What if it doesn't work?</summary><p>Stop with 7 days' notice and keep everything produced. If outbound doesn't work for you, you've found out before committing a salary.</p></details>
+        <details><summary>Who builds the list?</summary><p>We do, and we check every contact by hand. On Run we build 100 new prospects every month, or work from your own list for &pound;500 a month less.</p></details>
+        <details><summary>How often do you contact each prospect?</summary><p>Up to five times over about three weeks: a personal first message, a short follow-up, something useful, an email or call, and a final note. We stop the moment someone replies or asks us to, and never send more than two messages a week.</p></details>
         <details><summary>Who sends the messages?</summary><p>Eli and the Founding Seat team, in your company's name, using messages you approve. We don't buy contact lists or automate LinkedIn.</p></details>
       </div>
     </div>
   </section>
 
-  <section class="band" id="book">
-    <div class="wrap final" id="final">
-      <svg class="seatmark" viewBox="0 0 64 64" aria-hidden="true"><use href="#seat"></use></svg>
-      <span class="label">Your founding seat</span>
-      <h2>Let's fill it with someone who's <em>already proven.</em></h2>
-      <p class="muted">A 20-minute call is enough to tell whether the four weeks would work for you. Bring what you sell and who buys it.</p>
-      <div class="cta-row">
-        <a class="btn accent" data-book data-direct href="#book">Book a 20-minute call</a>
-        <a class="btn ghost" href="#free">Get 10 free prospects</a>
+  <section id="talk">
+    <div class="wrap close">
+      <div style="display:grid;gap:20px">
+        <h2>Tell me about the hire you're planning.</h2>
+        <p class="quiet">Twenty minutes is enough to know whether the four weeks would work for you. Bring what you sell and who buys it.</p>
+        <div class="actions">
+          <a class="btn" data-book data-direct href="#talk">Book a 20-minute call</a>
+          <a class="btn line" href="#free">Get 10 free prospects</a>
+        </div>
+        <p class="small quiet" id="bookNote">Online booking opens shortly. Until then, email or message me on LinkedIn.</p>
       </div>
-      <p class="muted" id="bookNote" style="font-size:.9rem">Online booking opens shortly. Until then, email or message Eli on LinkedIn.</p>
-      <div class="contact-row">
-        <code id="email">[email address]</code>
-        <button class="copy" type="button" id="copyBtn">Copy email</button>
-        <code>[phone number]</code>
+      <div class="contacts">
+        <span>Email <code id="email">[email address]</code> <button class="btn line" style="padding:4px 10px;font-size:.85rem" type="button" id="copyBtn">Copy</button></span>
+        <span>Phone <code>[phone number]</code></span>
+        <span>LinkedIn <a href="https://www.linkedin.com/in/eli-omokhodion-6579469a/" target="_blank" rel="noopener">Eli Omokhodion</a></span>
+        <span class="small quiet">Candidates never pay a fee.</span>
       </div>
-      <ul class="trust" style="justify-content:center">
-        <li>Prices on the page</li>
-        <li>Stop with 7 days' notice</li>
-        <li>Candidates never pay a fee</li>
-      </ul>
     </div>
   </section>
 </main>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="seat" viewBox="0 0 64 64">
-    <path d="M18 10h28a4 4 0 0 1 4 4v20H14V14a4 4 0 0 1 4-4z" style="fill:var(--seat-fill,none)" stroke="currentColor" stroke-width="3"/>
-    <rect x="10" y="34" width="44" height="8" rx="3" style="fill:var(--seat-fill,none)" stroke="currentColor" stroke-width="3"/>
-    <path d="M16 42v14M48 42v14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  </symbol>
-</svg>
-
 <div class="mobile-bar">
-  <a class="btn accent" data-book href="#book">Book a call</a>
-  <a class="btn ghost" href="#free">10 free prospects</a>
+  <a class="btn" data-book href="#talk">Book a call</a>
+  <a class="btn line" href="#free">10 free prospects</a>
 </div>
-
 
 <footer>
   <div class="wrap">
@@ -642,62 +554,36 @@ details h3 { color: var(--ink); font-size: 1rem; }
     </details>
   </div>
 </footer>
-
 <script>
 (function () {
   /* Set this once the booking page exists (HubSpot meetings or Calendly). Every "Book" button uses it. */
   var BOOKING_URL = '';
-
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (BOOKING_URL) {
     document.querySelectorAll('[data-book]').forEach(function (a) { a.href = BOOKING_URL; a.target = '_blank'; a.rel = 'noopener'; });
     var note = document.getElementById('bookNote'); if (note) note.hidden = true;
   }
 
-  /* 100-dot board */
-  var grid = document.getElementById('grid100');
-  var replied = [3, 11, 17, 24, 38, 45, 52, 67, 73, 88];
-  var meetings = [11, 38, 52, 73, 88];
-  var dots = [];
-  for (var i = 0; i < 100; i++) { var d = document.createElement('span'); d.className = 'dot'; grid.appendChild(d); dots.push(d); }
-  var cC = document.getElementById('cC'), cR = document.getElementById('cR'), cM = document.getElementById('cM'), wk = document.getElementById('weekLabel');
-  var timers = [];
-  function finalState() {
-    dots.forEach(function (d, i) { d.className = 'dot contacted' + (meetings.indexOf(i) > -1 ? ' meeting' : replied.indexOf(i) > -1 ? ' replied' : ''); });
-    cC.textContent = 100; cR.textContent = 10; cM.textContent = 5; wk.textContent = 'Week 4';
-  }
-  function play() {
-    timers.forEach(clearTimeout); timers = [];
-    dots.forEach(function (d) { d.className = 'dot'; });
-    cC.textContent = 0; cR.textContent = 0; cM.textContent = 0; wk.textContent = 'Week 1';
-    if (reduce) { finalState(); return; }
-    var t = 0;
-    for (var i = 0; i < 100; i++) (function (i) {
-      t = 200 + i * 22;
-      timers.push(setTimeout(function () { dots[i].classList.add('contacted'); cC.textContent = i + 1; if (i === 50) wk.textContent = 'Week 2'; }, t));
-    })(i);
-    replied.forEach(function (n, k) { timers.push(setTimeout(function () { dots[n].classList.add('replied'); cR.textContent = k + 1; wk.textContent = 'Week 3'; }, 2600 + k * 160)); });
-    meetings.forEach(function (n, k) { timers.push(setTimeout(function () { dots[n].classList.remove('replied'); dots[n].classList.add('meeting'); cM.textContent = k + 1; wk.textContent = 'Week 4'; }, 4400 + k * 320)); });
-  }
-  document.getElementById('replay').addEventListener('click', play);
-  if ('IntersectionObserver' in window) {
-    var started = false;
-    new IntersectionObserver(function (es, o) { if (es[0].isIntersecting && !started) { started = true; play(); o.disconnect(); } }, { threshold: 0.3 }).observe(grid);
-  } else { finalState(); }
-
-  /* Diary */
-  var diary = document.getElementById('diary');
-  var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  var booked = { '0-1': 'Head of Ops', '1-3': 'CFO, fintech', '2-0': 'Talent lead', '3-2': 'Founder', '4-1': 'Sales director' };
-  days.forEach(function (day, di) {
-    var col = document.createElement('div'); col.className = 'day';
-    var l = document.createElement('span'); l.className = 'label'; l.textContent = day; col.appendChild(l);
-    for (var s = 0; s < 4; s++) {
-      var slot = document.createElement('div'); slot.className = 'slot';
-      var key = di + '-' + s; if (booked[key]) { slot.className = 'slot booked'; slot.textContent = booked[key]; }
-      col.appendChild(slot);
+  /* Tally marks, drawn with a slightly unsteady hand */
+  var seed = 7; function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280 - 0.5; }
+  var NS = 'http://www.w3.org/2000/svg';
+  function tally(n) {
+    var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 330 22'); svg.setAttribute('preserveAspectRatio', 'xMinYMid meet'); svg.setAttribute('aria-hidden', 'true');
+    for (var g = 0; g < Math.ceil(n / 5); g++) {
+      var x0 = g * 16.5 + 2, inGroup = Math.min(5, n - g * 5);
+      for (var k = 0; k < Math.min(4, inGroup); k++) {
+        var l = document.createElementNS(NS, 'line'), x = x0 + k * 3;
+        l.setAttribute('x1', x + rnd() * 1.4); l.setAttribute('y1', 3 + rnd() * 2); l.setAttribute('x2', x + rnd() * 1.4); l.setAttribute('y2', 19 + rnd() * 2); svg.appendChild(l);
+      }
+      if (inGroup === 5) { var d = document.createElementNS(NS, 'line'); d.setAttribute('x1', x0 - 2 + rnd()); d.setAttribute('y1', 16 + rnd() * 2); d.setAttribute('x2', x0 + 11 + rnd()); d.setAttribute('y2', 6 + rnd() * 2); svg.appendChild(d); }
     }
-    diary.appendChild(col);
+    return svg;
+  }
+  var t = document.getElementById('tally');
+  [['Contacted', 100, ''], ['Replied', 10, ''], ['Meetings', 5, 'm']].forEach(function (r) {
+    var row = document.createElement('div'); row.className = 'tally-row ' + r[2];
+    var a = document.createElement('span'); a.textContent = r[0];
+    var b = document.createElement('b'); b.textContent = r[1];
+    row.appendChild(a); row.appendChild(tally(r[1])); row.appendChild(b); t.appendChild(row);
   });
 
   /* Cost calculator */
@@ -708,10 +594,10 @@ details h3 { color: var(--ink); font-size: 1rem; }
     document.getElementById('salaryOut').textContent = gbp(s);
     document.getElementById('mtgsOut').textContent = m;
     var rows = [
-      { name: 'Founding Seat: Prove, then Hire', v: Math.max(0.15 * s, 3500) + m * 300, show: null, note: 'Four weeks of outreach, ' + m + ' qualified meetings, a playbook and the hire. The Prove fee comes off the hiring fee.', ours: true },
-      { name: 'A recruitment agency', v: 0.1875 * s, show: gbp(0.175 * s) + ' to ' + gbp(0.2 * s), note: 'A hire against a job description nobody has tested. No pipeline.' },
-      { name: 'An outbound agency for 3 months, then a recruiter', v: 13500 + 0.175 * s, show: 'about ' + gbp(13500 + 0.175 * s), note: 'Meetings, then a separate search. No playbook joining the two.' },
-      { name: 'A wrong first hire', v: s, show: 'about ' + gbp(s), note: 'Roughly a year\'s salary, before counting the lost time.' }
+      { name: 'Founding Seat: four weeks, then the hire', v: Math.max(0.15 * s, 3500) + m * 300, note: 'Outreach, ' + m + ' qualified meeting' + (m === 1 ? '' : 's') + ', a playbook, then the hire. The four weeks\' fee comes off the hiring fee.', ours: true },
+      { name: 'A recruitment agency', v: 0.1875 * s, show: gbp(0.175 * s) + ' to ' + gbp(0.2 * s), note: 'A hire against a job description nobody has tested.' },
+      { name: 'An outbound agency for 3 months, then a recruiter', v: 13500 + 0.175 * s, show: 'about ' + gbp(13500 + 0.175 * s), note: 'Meetings, then a separate search, with nothing joining the two.' },
+      { name: 'Getting the first hire wrong', v: s, show: 'about ' + gbp(s), note: 'Roughly a year\'s salary, before the lost time.' }
     ];
     var max = Math.max.apply(null, rows.map(function (r) { return r.v; }));
     bars.innerHTML = '';
@@ -719,16 +605,15 @@ details h3 { color: var(--ink); font-size: 1rem; }
       var el = document.createElement('div'); el.className = 'bar' + (r.ours ? ' ours' : '');
       var top = document.createElement('div'); top.className = 'bar-top';
       var n = document.createElement('span'); n.textContent = r.name;
-      var v = document.createElement('strong'); v.textContent = r.show || gbp(r.v);
+      var v = document.createElement('b'); v.textContent = r.show || gbp(r.v);
       top.appendChild(n); top.appendChild(v);
       var tr = document.createElement('div'); tr.className = 'bar-track';
-      var f = document.createElement('div'); f.className = 'bar-fill'; f.style.width = (r.v / max * 100).toFixed(1) + '%';
-      tr.appendChild(f);
+      var f = document.createElement('div'); f.className = 'bar-fill'; f.style.width = (r.v / max * 100).toFixed(1) + '%'; tr.appendChild(f);
       var sm = document.createElement('small'); sm.textContent = r.note;
       el.appendChild(top); el.appendChild(tr); el.appendChild(sm); bars.appendChild(el);
     });
-    var cn = document.createElement('p'); cn.className = 'calc-note';
-    cn.textContent = 'Estimates excluding VAT. Recruiters at 17.5% to 20% of base salary; outbound agencies at about £4,500 a month, the middle of typical UK pricing.';
+    var cn = document.createElement('small'); cn.className = 'quiet';
+    cn.textContent = 'Estimates excluding VAT. Recruiters at 17.5% to 20% of base salary; outbound agencies at about £4,500 a month, the middle of typical UK prices.';
     bars.appendChild(cn);
   }
   sal.addEventListener('input', calc); mt.addEventListener('input', calc); calc();
@@ -737,18 +622,14 @@ details h3 { color: var(--ink); font-size: 1rem; }
   var form = document.getElementById('leadForm'), msg = document.getElementById('formMsg');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (!form.name.value.trim() || !/^\S+@\S+\.\S+$/.test(form.email.value.trim())) { msg.textContent = 'Please add your name and a work email.'; return; }
-    msg.textContent = 'Thanks. This form is being connected this week. For now, message Eli on LinkedIn and mention who you sell to.';
+    if (!form.name.value.trim() || !/^\S+@\S+\.\S+$/.test(form.email.value.trim())) { msg.textContent = 'Add your name and a work email.'; return; }
+    msg.textContent = 'Thanks. This form is being connected this week. For now, message Eli on LinkedIn and say who you sell to.';
   });
-
-  /* Seat fills at the end */
-  var fin = document.getElementById('final');
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { if (es[0].isIntersecting) fin.classList.add('filled'); }, { threshold: 0.5 }).observe(fin);
 
   /* Copy email */
   var btn = document.getElementById('copyBtn'), email = document.getElementById('email');
   btn.addEventListener('click', function () {
-    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy email'; }, 1800); };
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1800); };
     try { navigator.clipboard.writeText(email.textContent.trim()).then(done, sel); } catch (e) { sel(); }
   });
   function sel() { var r = document.createRange(); r.selectNodeContents(email); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
