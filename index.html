@@ -233,6 +233,20 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--ink); }
 details .policy { display: grid; gap: 12px; margin-top: 12px; }
 details .policy h3 { color: var(--ink); font-size: 1rem; }
 
+
+/* Conversion details */
+.ticks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.95rem; }
+.ticks li { display: flex; align-items: center; gap: 6px; }
+.ticks svg { width: 18px; height: 18px; flex: none; }
+.inline-cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; max-width: none; }
+.next { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 12px; counter-reset: n; }
+.next li { display: grid; grid-template-columns: 30px 1fr; column-gap: 12px; counter-increment: n; }
+.next li::before { content: counter(n); grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font-size: 0.85rem; font-weight: 600; }
+.next b { font-weight: 600; }
+.next span { color: var(--pencil); font-size: 0.97rem; }
+.btn { min-height: 48px; }
+.mobile-bar.away { transform: translateY(110%); }
+.mobile-bar { transition: transform .2s ease; }
 .mobile-bar { display: none; }
 
 @media (max-width: 920px) {
@@ -262,6 +276,13 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
   .prices tr:last-child td { border-bottom: 0; }
   .prices tr:last-child { border-bottom: 1px solid var(--rule); }
   .letter-body { font-size: 1.08rem; }
+  .hero .actions .btn, .close .actions .btn, form.lead .btn, .inline-cta .btn { width: 100%; text-align: center; }
+  .hero-copy { gap: 20px; }
+  h1 { font-size: 2.7rem; }
+  .ticks { flex-direction: column; }
+  form.lead { padding: 20px; }
+  form.lead input, form.lead textarea { font-size: 16px; }
+  footer { padding-bottom: 110px; }
   header .btn { display: none; }
   .sheet { transform: none; }
   .sheet-note { position: static; display: block; padding: 0 16px 14px; transform: none; }
@@ -294,7 +315,12 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
           <a class="btn" data-book href="#talk">Book a 20-minute call</a>
           <a class="btn line" href="#free">Get 10 free prospects</a>
         </div>
-        <p class="fine">Prices are on this page. Stop the four weeks with 7 days' notice.</p>
+        <p class="fine">A 20-minute video call, no slides. You'll know by the end whether it's worth doing.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg>Prices on this page</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg>Stop with 7 days' notice</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pen" d="M3 13l6 6L21 4"/></svg>Every prospect checked by hand</li>
+        </ul>
       </div>
 
       <figure class="sheet draw" style="margin:0" aria-label="Example prospect sheet from week 3 of four, with meetings circled">
@@ -353,6 +379,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
         <p><b>What we do</b><span class="quiet">Find, contact and qualify prospects, in your company's name, with messages you approve.</span></p>
         <p><b>What you do</b><span class="quiet">Take the meetings and close your own deals. About 3 hours a week, plus the calls.</span></p>
       </div>
+      <p class="inline-cta"><a class="btn" data-book href="#talk">Book a 20-minute call</a><span class="quiet small">See if the four weeks fits your sales.</span></p>
     </div>
   </section>
 
@@ -472,6 +499,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
           <li>Selling to consumers</li>
         </ul></div>
       </div>
+      <p class="inline-cta"><a class="btn" data-book href="#talk">Book a 20-minute call</a><span class="quiet small">Not sure which fits? We'll tell you on the call, including if it's none of them.</span></p>
     </div>
   </section>
 
@@ -480,6 +508,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
       <div style="display:grid;gap:18px">
         <h2>Not ready for a call? Get 10 prospects free.</h2>
         <p class="quiet">Tell us who you sell to. Within two working days we'll send 10 named decision makers who fit, each checked by hand. Yours to keep, whether or not we work together.</p>
+        <p><b>Why free?</b> <span class="quiet">It's the quickest way to show you how we work. If the 10 are useful, you'll probably want the other 90. If they're not, you've lost two minutes.</span></p>
       </div>
       <form class="lead" id="leadForm" novalidate>
         <!-- Connect to HubSpot forms once set up: replace the submit handler below. -->
@@ -488,6 +517,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
         <label>Company website<input name="website" type="url" placeholder="company.com"></label>
         <label>Who do you sell to?<textarea name="buyers" rows="2" placeholder="For example: finance directors at UK manufacturers with 50 to 500 staff"></textarea></label>
         <div><button class="btn" type="submit">Send me 10 prospects</button></div>
+        <p class="small quiet">Takes 2 minutes. We reply within 2 working days. No newsletter.</p>
         <p class="form-msg" id="formMsg" role="status"></p>
       </form>
     </div>
@@ -497,6 +527,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
     <div class="wrap">
       <h2>Questions founders ask</h2>
       <div class="faq">
+        <details><summary>What's the catch with the free 10 prospects?</summary><p>None. It shows you how we choose and check prospects. If you like them, we'll talk about the other 90. If not, keep them anyway.</p></details>
         <details><summary>We already use a recruiter.</summary><p>Keep them if you like. Four weeks of evidence gives any recruiter a far better brief, and your hire starts with live pipeline.</p></details>
         <details><summary>We need someone now.</summary><p>The four weeks can run alongside your search. Whoever you hire inherits the pipeline.</p></details>
         <details><summary>Isn't it too early for sales?</summary><p>That's what the four weeks tests, for &pound;3,500 instead of a salary.</p></details>
@@ -514,6 +545,11 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
       <div style="display:grid;gap:20px">
         <h2>Tell me about the hire you're planning.</h2>
         <p class="quiet">Twenty minutes is enough to know whether the four weeks would work for you. Bring what you sell and who buys it.</p>
+        <ol class="next">
+          <li><b>Pick a time</b><span>Takes a minute. Video or phone.</span></li>
+          <li><b>20 minutes together</b><span>What you sell, who buys it, and whether four weeks would prove anything.</span></li>
+          <li><b>A written proposal within 24 hours</b><span>If it fits. We can start within 5 working days.</span></li>
+        </ol>
         <div class="actions">
           <a class="btn" data-book data-direct href="#talk">Book a 20-minute call</a>
           <a class="btn line" href="#free">Get 10 free prospects</a>
@@ -625,6 +661,18 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
     if (!form.name.value.trim() || !/^\S+@\S+\.\S+$/.test(form.email.value.trim())) { msg.textContent = 'Add your name and a work email.'; return; }
     msg.textContent = 'Thanks. This form is being connected this week. For now, message Eli on LinkedIn and say who you sell to.';
   });
+
+
+  /* Hide the mobile bar when the form or contact section is on screen */
+  var bar = document.querySelector('.mobile-bar');
+  if (bar && 'IntersectionObserver' in window) {
+    var onScreen = new Set();
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) onScreen.add(e.target); else onScreen.delete(e.target); });
+      bar.classList.toggle('away', onScreen.size > 0);
+    }, { threshold: 0.15 });
+    ['leadForm', 'talk', 'top'].forEach(function (id) { var el = id === 'top' ? document.querySelector('.hero .actions') : document.getElementById(id); if (el) io.observe(el); });
+  }
 
   /* Copy email */
   var btn = document.getElementById('copyBtn'), email = document.getElementById('email');
