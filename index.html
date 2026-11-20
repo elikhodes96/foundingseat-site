@@ -192,6 +192,12 @@ input[type=range] { width: 100%; accent-color: var(--pen); }
 .bar small { color: var(--pencil); font-size: 0.9rem; }
 
 /* Price list */
+.vs { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 1rem; }
+.vs th, .vs td { text-align: left; vertical-align: top; padding: 14px 20px 14px 0; border-top: 1px solid var(--rule); }
+.vs thead th { font-weight: 600; border-top: 0; }
+.vs tbody th { font-weight: 500; width: 22%; }
+.vs td { color: var(--pencil); width: 39%; }
+.vs td:last-child { color: var(--ink); }
 .prices { width: 100%; border-collapse: collapse; margin-top: 36px; }
 .prices th, .prices td { text-align: left; vertical-align: top; padding: 22px 24px 22px 0; border-top: 1px solid var(--rule); }
 .prices tr:last-child td, .prices tr:last-child th { border-bottom: 1px solid var(--rule); }
@@ -277,6 +283,15 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
   .prices tr { border-top: 1px solid var(--rule); padding: 18px 0; }
   .prices th, .prices td { border: 0; padding: 4px 0; }
   .prices th, .prices td.cost { width: auto; }
+  .vs thead { display: none; }
+  .vs, .vs tbody, .vs tr, .vs th, .vs td { display: block; width: auto; }
+  .vs tr { border-top: 1px solid var(--rule); padding: 12px 0; }
+  .vs th, .vs td { border: 0; padding: 2px 0; }
+  .vs tbody th, .vs td { width: auto; font-weight: 600; }
+  .vs td { font-weight: 400; }
+  .vs td::before { display: block; font-size: 0.85rem; color: var(--pencil); }
+  .vs td:nth-of-type(1)::before { content: "Hire an SDR"; }
+  .vs td:nth-of-type(2)::before { content: "Run for sales teams"; }
   .prices tr:last-child td { border-bottom: 0; }
   .prices tr:last-child { border-bottom: 1px solid var(--rule); }
   .letter-body { font-size: 1.08rem; }
@@ -447,17 +462,34 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
       <div style="display:grid;gap:18px;align-content:start">
         <h2>Already have closers? We aim for 20 qualified meetings a month.</h2>
         <p class="quiet">If your sales process already works, you don't need us to build a sales function. You need more calls made. We build the list and call it, using your script and your CRM. About 10 meetings in month one while we learn your pitch, then a target of 20 a month.</p>
+        <p><b>&pound;1,500 a month plus &pound;250 per qualified meeting.</b> <span class="quiet">No set-up fee. No long contract.</span></p>
         <p class="inline-cta"><a class="btn" data-book href="#talk">Book a 20-minute call</a><span class="quiet small">Tell us your meetings target. We'll say if we can hit it.</span></p>
       </div>
       <ul class="keep">
-        <li><b>400 new prospects a month</b><span>Found and checked by hand against the profile your sales lead gives us, with phone numbers screened against the do-not-call lists.</span></li>
-        <li><b>Your script, your process</b><span>We call using the pitch your team already uses, log every call in your CRM and follow your handover rules.</span></li>
-        <li><b>Meetings in your closers' diaries</b><span>Each one passes the six checks and comes with the note above.</span></li>
-        <li><b>&pound;6,500 a month at 20 meetings</b><span>&pound;1,500 plus &pound;250 per qualified meeting, about &pound;325 a meeting. Most of what you pay is for meetings that happened. Pay-per-meeting firms typically charge &pound;470 to &pound;700.</span></li>
-        <li><b>Against hiring an SDR</b><span>An SDR on &pound;35,000 base, with commission, employer NI and pension, costs about &pound;4,500 a month before tools and a recruiter's fee, and usually takes around three months to reach full pace.</span></li>
-        <li><b>If one meeting in ten closes</b><span>At a &pound;30,000 average deal, 20 meetings a month is two new deals: &pound;60,000 of business for &pound;6,500.</span></li>
+        <li><b>Under 10 meetings in month one? No monthly fee.</b><span>You pay only for the qualified meetings we did book. The &pound;1,500 is on us.</span></li>
+        <li><b>Leave with 30 days' notice</b><span>Month one is a trial. After that it rolls monthly, and you can stop whenever you like.</span></li>
+        <li><b>Set a monthly cap</b><span>Tell us the most meetings you want in a month and we'll never bill above it.</span></li>
+        <li><b>A bad meeting is free</b><span>If one misses any of the six checks, tell us within 24 hours and you don't pay for it.</span></li>
+        <li><b>Hear every call</b><span>Recordings and notes go into your CRM, so you know exactly how your company sounds on the phone.</span></li>
+        <li><b>Calling within 5 working days</b><span>We need your ideal customer, your script, a CRM login and one 45-minute kick-off call. That's it.</span></li>
+        <li><b>400 checked prospects a month</b><span>Checked by hand against your profile, with numbers screened against the do-not-call lists. The list is yours to keep.</span></li>
         <li><b>SDRs when you want them</b><span>When you're ready to hire, we recruit them at 15%, with the pipeline already running.</span></li>
       </ul>
+    </div>
+    <div class="wrap">
+      <h3 style="margin-top:56px">Your next six months, two ways</h3>
+      <table class="vs">
+        <thead><tr><th></th><th>Hire an SDR</th><th>Run for sales teams</th></tr></thead>
+        <tbody>
+          <tr><th>First meetings</th><td>Month 2 or 3, after about 6 weeks of hiring</td><td>Week 2</td></tr>
+          <tr><th>Qualified meetings</th><td>About 70, while they ramp up</td><td>A target of 110</td></tr>
+          <tr><th>Total cost</th><td>About &pound;30,500, including a recruiter's fee and tools</td><td>About &pound;36,500 if every target is hit</td></tr>
+          <tr><th>Cost per meeting</th><td>About &pound;435</td><td>About &pound;330</td></tr>
+          <tr><th>Your time</th><td>Interviews, onboarding, weekly coaching</td><td>A 30-minute weekly review</td></tr>
+          <tr><th>If it doesn't work</th><td>Notice period, then start the search again</td><td>30 days' notice</td></tr>
+        </tbody>
+      </table>
+      <p class="small quiet" style="margin-top:12px">Illustration. SDR on &pound;35,000 base and &pound;10,000 commission with employer NI and pension (about &pound;4,500 a month), starting in month 2 and booking 5, 10, 15, 20 and 20 meetings. Recruiter's fee about &pound;6,500, tools about &pound;300 a month. Run for sales teams: about 10 meetings in month one, then 20 a month.</p>
     </div>
   </section>
 
@@ -498,7 +530,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
         <tbody>
           <tr><th>Prove<span>Four weeks</span></th><td class="what">Your first 100 prospects, built and checked by hand. Outreach, discovery calls, meetings in your diary, a playbook and a hiring recommendation. Set a meeting limit if you want one.</td><td class="cost"><b>&pound;3,500</b>plus &pound;300 per qualified meeting</td></tr>
           <tr><th>Run<span>Six-month term</span></th><td class="what">100 new prospects a month, outreach, your CRM kept up to date, weekly report. Renews every six months unless you give a month's notice.</td><td class="cost"><b>&pound;3,450 a month</b>plus &pound;250 per qualified meeting. &pound;2,950 if you supply the list</td></tr>
-          <tr><th>Run for sales teams<span>Six-month term</span></th><td class="what">For companies with closers and a sales process in place. We build 400 new prospects a month and call them with your script, logging everything in your CRM. About 10 meetings in month one, then a target of 20 a month.</td><td class="cost"><b>&pound;1,500 a month</b>plus &pound;250 per qualified meeting</td></tr>
+          <tr><th>Run for sales teams<span>Rolling monthly</span></th><td class="what">For companies with closers and a sales process in place. We build 400 new prospects a month and call them with your script, logging everything in your CRM. About 10 meetings in month one, then a target of 20 a month. Fewer than 10 in month one and the monthly fee is waived. 30 days' notice.</td><td class="cost"><b>&pound;1,500 a month</b>plus &pound;250 per qualified meeting</td></tr>
           <tr><th>Hire<span>Any sales role</span></th><td class="what">Scorecard, search, interviews, and a mock call on your real pitch, coached live so you see how fast each candidate learns. A shortlist in four to eight weeks. Paid 30% at the start, 30% at first interview, 40% on contract.</td><td class="cost"><b>15%</b>of first-year base salary</td></tr>
           <tr><th>Sales set-up<span>Optional</span></th><td class="what">CRM set-up, pipeline stages, reporting and a 30-day plan for your new hire.</td><td class="cost"><b>&pound;2,000</b></td></tr>
           <tr><th>Hire only<span>No four weeks</span></th><td class="what">For founders whose sales process is already proven.</td><td class="cost"><b>17.5%</b>of first-year base salary</td></tr>
@@ -559,7 +591,7 @@ details .policy h3 { color: var(--ink); font-size: 1rem; }
         <details><summary>Isn't it too early for sales?</summary><p>That's what the four weeks tests, for &pound;3,500 instead of a salary.</p></details>
         <details><summary>You don't know our sector.</summary><p>Most candidates won't either. The four weeks is where we learn it, and where we find out what your hire needs to know.</p></details>
         <details><summary>What if it doesn't work?</summary><p>Stop with 7 days' notice and keep everything produced. If outbound doesn't work for you, you've found out before committing a salary.</p></details>
-        <details><summary>We already have a sales team. Is this for us?</summary><p>Yes, if your closers need more meetings. Start on Run for sales teams: &pound;1,500 a month plus &pound;250 per qualified meeting. We build 400 new prospects a month and call them using your script, book about 10 qualified meetings in month one and aim for 20 a month after that, straight into their diaries. We don't rebuild your sales process; it already works.</p></details>
+        <details><summary>We already have a sales team. Is this for us?</summary><p>Yes, if your closers need more meetings. Start on Run for sales teams: &pound;1,500 a month plus &pound;250 per qualified meeting. We build 400 new prospects a month and call them using your script, book about 10 qualified meetings in month one and aim for 20 a month after that, straight into their diaries. We don't rebuild your sales process; it already works. If we book fewer than 10 qualified meetings in month one, you don't pay the monthly fee, and you can stop with 30 days' notice.</p></details>
         <details><summary>We already pay an outbound agency.</summary><p>Most charge &pound;2,000 to &pound;8,000 a month whether meetings turn up or not. Part of our fee is only paid when a meeting passes all six checks, and every prospect is checked by hand. Compare the last three months with what we'd commit to.</p></details>
         <details><summary>Who builds the list?</summary><p>We do, and we check every contact by hand. On Run we build 100 new prospects every month, or work from your own list for &pound;500 a month less.</p></details>
         <details><summary>How often do you contact each prospect?</summary><p>Up to five times over about three weeks: a personal first message, a short follow-up, something useful, an email or call, and a final note. We stop the moment someone replies or asks us to, and never send more than two messages a week.</p></details>
